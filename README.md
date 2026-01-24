@@ -1,50 +1,21 @@
-# Welcome to your Expo app 👋
+# Smart Home Controller Application
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This application an addon to smart home controlled by Tuya or Mija IoT platform.
 
-## Get started
 
-1. Install dependencies
+This application is an add-on to a smart home controlled by the Tuya or 
+Mijia IoT platform.
 
-   ```bash
-   npm install
-   ```
+The primary feature is to detect grid power-off events. 
+There are no reliable devices on the market that can cope with this. 
+A mobile phone with the app installed should be plugged into a power outlet. If grid power goes down, the application sends a message via a Telegram bot.
 
-2. Start the app
 
-   ```bash
-   npx expo start
-   ```
+## TODO list
 
-In the output, you'll find options to open the app in a
+Automatically send a request to the Tuya API to shut down the power switch when power is off. Such behavior is required when your home is powered by solar panels and grid power. If grid power is not available, you want to switch off some power-consuming devices.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Development notes
 
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+In order to run the application use `npx expo start --tunnel`

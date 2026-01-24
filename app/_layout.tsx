@@ -1,24 +1,37 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { useEffect } from 'react';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { store, persistor } from '../store';
+import '../i18n';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
+import i18n from '../i18n';
+import { useBatteryMonitor } from '../hooks/useBatteryMonitor';
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
+function AppContent() {
+    const language = useSelector((state: RootState) => state.settings.language);
+    useBatteryMonitor();
 
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+    useEffect(() => {
+        if (i18n.language !== language) {
+            i18n.changeLanguage(language);
+        }
+    }, [language]);
+
+    return (
+        <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        </Stack>
+    );
+}
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
-  );
+    return (
+        <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+                <AppContent />
+            </PersistGate>
+        </Provider>
+    );
 }

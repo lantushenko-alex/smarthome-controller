@@ -34,7 +34,9 @@ export default function HomeScreen() {
                 <ThemedText type="defaultSemiBold">{t('home.notifications')}</ThemedText>
                 <Switch
                     value={notificationsEnabled}
-                    onValueChange={value => dispatch(setNotificationsEnabled(value))}
+                    onValueChange={value => {
+                        dispatch(setNotificationsEnabled(value));
+                    }}
                 />
             </ThemedView>
         </ThemedView>

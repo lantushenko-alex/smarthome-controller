@@ -26,4 +26,5 @@ There should be messages text that will be sent by bot in case power off/on even
 
 Use redux and redux persist. Use expo router for tab navigation. 
 Application should support internationalization. Default language is Russian.
-All UI messages should be translated to English or Russian
+All UI messages should be translated to English or Russian.
+Use `node-telegram-bot-api` for sending notifications to Telegram.

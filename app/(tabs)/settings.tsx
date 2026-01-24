@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import * as SecureStore from 'expo-secure-store';
 import { RootState } from '@/store';
-import { setPowerOffMessage, setPowerOnMessage, setLanguage } from '@/store/settingsSlice';
+import { setPowerOffMessage, setPowerOnMessage, setLanguage, setTelegramChatId } from '@/store/settingsSlice';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 
@@ -23,7 +23,7 @@ export default function SettingsScreen() {
         });
     }, []);
 
-    const saveTelegramToken = async () => {
+    const saveSettings = async () => {
         await SecureStore.setItemAsync(TELEGRAM_TOKEN_KEY, telegramToken);
         Alert.alert(t('settings.save'), 'Success');
     };
@@ -44,10 +44,21 @@ export default function SettingsScreen() {
                     placeholder={t('settings.telegramTokenPlaceholder')}
                     secureTextEntry
                 />
-                <TouchableOpacity style={styles.button} onPress={saveTelegramToken}>
-                    <ThemedText style={styles.buttonText}>{t('settings.save')}</ThemedText>
-                </TouchableOpacity>
             </ThemedView>
+
+            <ThemedView style={styles.section}>
+                <ThemedText type="defaultSemiBold">{t('settings.telegramChatId')}</ThemedText>
+                <TextInput
+                    style={styles.input}
+                    value={settings.telegramChatId}
+                    onChangeText={val => dispatch(setTelegramChatId(val))}
+                    placeholder={t('settings.telegramChatIdPlaceholder')}
+                />
+            </ThemedView>
+
+            <TouchableOpacity style={styles.saveButton} onPress={saveSettings}>
+                <ThemedText style={styles.buttonText}>{t('settings.save')}</ThemedText>
+            </TouchableOpacity>
 
             <ThemedView style={styles.section}>
                 <ThemedText type="defaultSemiBold">{t('settings.powerOffMsg')}</ThemedText>
@@ -114,6 +125,13 @@ const styles = StyleSheet.create({
     buttonText: {
         color: '#fff',
         fontWeight: 'bold',
+    },
+    saveButton: {
+        backgroundColor: '#007AFF',
+        padding: 12,
+        borderRadius: 8,
+        alignItems: 'center',
+        marginBottom: 25,
     },
     languageRow: {
         flexDirection: 'row',

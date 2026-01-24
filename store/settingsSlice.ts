@@ -1,10 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from './index';
 
 interface SettingsState {
     notificationsEnabled: boolean;
     powerOffMessage: string;
     powerOnMessage: string;
     language: 'en' | 'ru';
+    telegramChatId: string;
 }
 
 const initialState: SettingsState = {
@@ -12,6 +14,7 @@ const initialState: SettingsState = {
     powerOffMessage: 'Power is OFF',
     powerOnMessage: 'Power is ON',
     language: 'en',
+    telegramChatId: '',
 };
 
 const settingsSlice = createSlice({
@@ -30,9 +33,18 @@ const settingsSlice = createSlice({
         setLanguage: (state, action: PayloadAction<'en' | 'ru'>) => {
             state.language = action.payload;
         },
+        setTelegramChatId: (state, action: PayloadAction<string>) => {
+            state.telegramChatId = action.payload;
+        },
     },
 });
 
-export const { setNotificationsEnabled, setPowerOffMessage, setPowerOnMessage, setLanguage } = settingsSlice.actions;
+export const {
+    setNotificationsEnabled,
+    setPowerOffMessage,
+    setPowerOnMessage,
+    setLanguage,
+    setTelegramChatId,
+} = settingsSlice.actions;
 
 export default settingsSlice.reducer;

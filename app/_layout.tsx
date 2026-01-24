@@ -1,11 +1,8 @@
 import { useEffect } from 'react';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Stack } from 'expo-router';
-import { store, persistor } from '../store';
-import '../i18n';
-import { useSelector } from 'react-redux';
-import { RootState } from '../store';
+import { store, persistor, RootState } from '../store';
 import i18n from '../i18n';
 import { useBatteryMonitor } from '../hooks/useBatteryMonitor';
 

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { MESSAGES_TO_KEEP } from '@/store/settingsSlice';
 
 export interface PowerEvent {
     id: string;
@@ -20,13 +21,13 @@ const logsSlice = createSlice({
     reducers: {
         addEvent: (state, action: PayloadAction<PowerEvent>) => {
             state.events.unshift(action.payload);
-        },
-        clearLogs: state => {
-            state.events = [];
+            if (state.events.length > MESSAGES_TO_KEEP) {
+                state.events = state.events.slice(0, 100);
+            }
         },
     },
 });
 
-export const { addEvent, clearLogs } = logsSlice.actions;
+export const { addEvent } = logsSlice.actions;
 
 export default logsSlice.reducer;

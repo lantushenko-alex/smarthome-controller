@@ -1,31 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, TextInput, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import * as SecureStore from 'expo-secure-store';
 import { RootState } from '@/store';
-import { setPowerOffMessage, setPowerOnMessage, setLanguage, setTelegramChatId } from '@/store/settingsSlice';
+import {
+    setPowerOffMessage,
+    setPowerOnMessage,
+    setLanguage,
+    setTelegramChatId,
+    setTelegramKey,
+    TELEGRAM_TOKEN_KEY,
+} from '@/store/settingsSlice';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 
-const TELEGRAM_TOKEN_KEY = 'telegram_bot_api_key';
 
 export default function SettingsScreen() {
     const { t, i18n } = useTranslation();
     const dispatch = useDispatch();
     const settings = useSelector((state: RootState) => state.settings);
 
-    const [telegramToken, setTelegramToken] = useState('');
-
     useEffect(() => {
         SecureStore.getItemAsync(TELEGRAM_TOKEN_KEY).then(token => {
-            if (token) setTelegramToken(token);
+            if (token) {
+                dispatch(setTelegramKey(token));
+            }
         });
-    }, []);
+    }, [dispatch]);
 
-    const saveSettings = async () => {
-        await SecureStore.setItemAsync(TELEGRAM_TOKEN_KEY, telegramToken);
-        Alert.alert(t('settings.save'), 'Success');
+    const changeTelegramKey = (val: string) => {
+        dispatch(setTelegramKey(val));
+        SecureStore.setItemAsync(TELEGRAM_TOKEN_KEY, val);
     };
 
     const changeLanguage = (lang: 'en' | 'ru') => {
@@ -39,8 +45,8 @@ export default function SettingsScreen() {
                 <ThemedText type="defaultSemiBold">{t('settings.telegramToken')}</ThemedText>
                 <TextInput
                     style={styles.input}
-                    value={telegramToken}
-                    onChangeText={setTelegramToken}
+                    value={settings.telegramKey}
+                    onChangeText={changeTelegramKey}
                     placeholder={t('settings.telegramTokenPlaceholder')}
                     secureTextEntry
                 />
@@ -55,10 +61,6 @@ export default function SettingsScreen() {
                     placeholder={t('settings.telegramChatIdPlaceholder')}
                 />
             </ThemedView>
-
-            <TouchableOpacity style={styles.saveButton} onPress={saveSettings}>
-                <ThemedText style={styles.buttonText}>{t('settings.save')}</ThemedText>
-            </TouchableOpacity>
 
             <ThemedView style={styles.section}>
                 <ThemedText type="defaultSemiBold">{t('settings.powerOffMsg')}</ThemedText>

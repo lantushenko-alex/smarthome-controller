@@ -1,6 +1,7 @@
 # Guidelines for AI tools to generate application prototype
 
 Read the [README](./README.md) file first. Do not implement what is in TODO list.
+The application is named "Smart Home Controller".
 
 ## Application structure
 The application should have 3 screens:
@@ -24,5 +25,5 @@ There should be messages text that will be sent by bot in case power off/on even
 ## Technologies to use
 
 Use redux and redux persist. Use expo router for tab navigation. 
-Application should support internationalization. 
+Application should support internationalization. Default language is Russian.
 All UI messages should be translated to English or Russian

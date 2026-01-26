@@ -4,6 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import settingsReducer from './settingsSlice';
 import logsReducer from './logsSlice';
 import statusReducer from './statusSlice';
+import secureReducer from './secureSlice';
+import secureStorage from './secureStorage';
 
 const persistConfig = {
     key: 'root',
@@ -14,13 +16,18 @@ const persistConfig = {
 const settingsPersistConfig = {
     key: 'settings',
     storage: AsyncStorage,
-    blacklist: ['telegramKey'], //telegram key should be stored in secure storage only
+};
+
+const securePersistConfig = {
+    key: 'secure',
+    storage: secureStorage,
 };
 
 const rootReducer = combineReducers({
     settings: persistReducer(settingsPersistConfig, settingsReducer),
     logs: logsReducer,
     status: statusReducer,
+    secure: persistReducer(securePersistConfig, secureReducer),
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

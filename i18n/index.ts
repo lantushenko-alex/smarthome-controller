@@ -16,6 +16,7 @@ const resources = {
         empty: 'No events yet',
         powerOff: 'Power cut-off',
         powerOn: 'Power restored',
+        error: 'Error',
       },
       settings: {
         title: 'Settings',
@@ -44,6 +45,7 @@ const resources = {
         empty: 'Событий пока нет',
         powerOff: 'Отключение питания',
         powerOn: 'Восстановление питания',
+        error: 'Ошибка',
       },
       settings: {
         title: 'Настройки',

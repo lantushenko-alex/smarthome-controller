@@ -1,17 +1,15 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, TextInput, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import React from 'react';
+import { StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import * as SecureStore from 'expo-secure-store';
 import { RootState } from '@/store';
 import {
     setPowerOffMessage,
     setPowerOnMessage,
     setLanguage,
     setTelegramChatId,
-    setTelegramKey,
-    TELEGRAM_TOKEN_KEY,
 } from '@/store/settingsSlice';
+import { setTelegramKey } from '@/store/secureSlice';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 
@@ -20,18 +18,10 @@ export default function SettingsScreen() {
     const { t, i18n } = useTranslation();
     const dispatch = useDispatch();
     const settings = useSelector((state: RootState) => state.settings);
-
-    useEffect(() => {
-        SecureStore.getItemAsync(TELEGRAM_TOKEN_KEY).then(token => {
-            if (token) {
-                dispatch(setTelegramKey(token));
-            }
-        });
-    }, [dispatch]);
+    const telegramKey = useSelector((state: RootState) => state.secure.telegramKey);
 
     const changeTelegramKey = (val: string) => {
         dispatch(setTelegramKey(val));
-        SecureStore.setItemAsync(TELEGRAM_TOKEN_KEY, val);
     };
 
     const changeLanguage = (lang: 'en' | 'ru') => {
@@ -45,7 +35,7 @@ export default function SettingsScreen() {
                 <ThemedText type="defaultSemiBold">{t('settings.telegramToken')}</ThemedText>
                 <TextInput
                     style={styles.input}
-                    value={settings.telegramKey}
+                    value={telegramKey}
                     onChangeText={changeTelegramKey}
                     placeholder={t('settings.telegramTokenPlaceholder')}
                     secureTextEntry

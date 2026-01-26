@@ -3,8 +3,9 @@ import { MESSAGES_TO_KEEP } from '@/store/settingsSlice';
 
 export interface PowerEvent {
     id: string;
-    type: 'off' | 'on';
+    type: 'off' | 'on' | 'error';
     timestamp: number;
+    message?: string;
 }
 
 interface LogsState {

@@ -27,3 +27,13 @@ There should be messages text that will be sent by bot in case power off/on even
 Use redux and redux persist. Use expo router for tab navigation. 
 Application should support internationalization. Default language is Russian.
 All UI messages should be translated to English or Russian.
+
+Use secure storage in order to store sensitive data, such as Telegram bot api key.
+
+## Background Execution
+
+The application should be able to run and save telegram messages even when device sleeps.
+For this purpose, `expo-task-manager Telegram if the state changes.
+Permissions `RECEIVE_BOOT_COMPLETED` and `WAKE_LOCK` are required on` and `expo-background-fetch` are used to monitor battery status in the background.
+The background task is registered to check battery state periodically and notify via Android.
+On iOS, `fetch` and `processing` background modes should be enabled.

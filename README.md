@@ -5,6 +5,8 @@ Mijia IoT platform.
 
 Currently implemented features: 
 - send telegram bot message when power is off or on 
+- error logging for failed Telegram notifications with 3 retry attempts
+- visual logs tab for monitoring power events and errors 
 
 The primary feature is to detect grid power-off events. 
 There are no reliable devices on the market that can cope with this. 

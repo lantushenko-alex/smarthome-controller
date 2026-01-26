@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './index';
 
 export const MESSAGES_TO_KEEP = 100;
-export const TELEGRAM_TOKEN_KEY = 'telegram_bot_api_key';
+export const TELEGRAM_MAX_RETRIES = 3;
 
 interface SettingsState {
     notificationsEnabled: boolean;
@@ -10,7 +10,6 @@ interface SettingsState {
     powerOnMessage: string;
     language: 'en' | 'ru';
     telegramChatId: string;
-    telegramKey: string; // WARNING: This field is blacklisted in store/index.ts and NOT persisted in ordinary storage.
 }
 
 const initialState: SettingsState = {
@@ -19,7 +18,6 @@ const initialState: SettingsState = {
     powerOnMessage: 'Power is ON',
     language: 'en',
     telegramChatId: '',
-    telegramKey: '',
 };
 
 const settingsSlice = createSlice({
@@ -41,9 +39,6 @@ const settingsSlice = createSlice({
         setTelegramChatId: (state, action: PayloadAction<string>) => {
             state.telegramChatId = action.payload;
         },
-        setTelegramKey: (state, action: PayloadAction<string>) => {
-            state.telegramKey = action.payload;
-        },
     },
 });
 
@@ -53,11 +48,9 @@ export const {
     setPowerOnMessage,
     setLanguage,
     setTelegramChatId,
-    setTelegramKey,
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;
 
 export const selectNotificationsEnabled = (state: RootState) => state.settings.notificationsEnabled;
 export const selectTelegramChatId = (state: RootState) => state.settings.telegramChatId;
-export const selectTelegramKey = (state: RootState) => state.settings.telegramKey;

@@ -5,10 +5,15 @@ import { Stack } from 'expo-router';
 import { store, persistor, RootState } from '../store';
 import i18n from '../i18n';
 import { useBatteryMonitor } from '../hooks/useBatteryMonitor';
+import { registerBackgroundBatteryTask } from '../hooks/useBackgroundBatteryTask';
 
 function AppContent() {
     const language = useSelector((state: RootState) => state.settings.language);
     useBatteryMonitor();
+
+    useEffect(() => {
+        registerBackgroundBatteryTask().catch(err => console.error('Failed to register background task', err));
+    }, []);
 
     useEffect(() => {
         if (i18n.language !== language) {

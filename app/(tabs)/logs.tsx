@@ -19,14 +19,35 @@ export default function LogsScreen() {
                 renderItem={({ item }) => (
                     <ThemedView style={styles.eventItem}>
                         <IconSymbol
-                            name={item.type === 'off' ? 'bolt.slash.fill' : 'bolt.fill'}
+                            name={
+                                item.type === 'off'
+                                    ? 'bolt.slash.fill'
+                                    : item.type === 'on'
+                                    ? 'bolt.fill'
+                                    : 'exclamationmark.triangle.fill'
+                            }
                             size={24}
-                            color={item.type === 'off' ? '#F44336' : '#4CAF50'}
+                            color={
+                                item.type === 'off'
+                                    ? '#F44336'
+                                    : item.type === 'on'
+                                    ? '#4CAF50'
+                                    : '#FF9800'
+                            }
                         />
                         <ThemedView style={styles.eventDetails}>
                             <ThemedText type="defaultSemiBold">
-                                {item.type === 'off' ? t('logs.powerOff') : t('logs.powerOn')}
+                                {item.type === 'off'
+                                    ? t('logs.powerOff')
+                                    : item.type === 'on'
+                                    ? t('logs.powerOn')
+                                    : t('logs.error')}
                             </ThemedText>
+                            {item.message && (
+                                <ThemedText style={styles.message}>
+                                    {item.message}
+                                </ThemedText>
+                            )}
                             <ThemedText style={styles.timestamp}>
                                 {new Date(item.timestamp).toLocaleString()}
                             </ThemedText>
@@ -60,6 +81,11 @@ const styles = StyleSheet.create({
     timestamp: {
         fontSize: 12,
         opacity: 0.6,
+    },
+    message: {
+        fontSize: 14,
+        marginTop: 2,
+        opacity: 0.8,
     },
     emptyContainer: {
         padding: 20,

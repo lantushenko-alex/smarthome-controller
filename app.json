@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Smart Home Controller",
-    "slug": "smarthome-controller",
+    "slug": "smart-home-controller",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -55,6 +55,13 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "ca42bbff-3922-4570-85ae-597e17ed5852"
+      }
+    },
+    "owner": "alex-lantushenko"
   }
 }

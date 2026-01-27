@@ -3,6 +3,16 @@
 Read the [README](./README.md) file first. Do not implement what is in TODO list.
 The application is named "Smart Home Controller".
 
+## Project structure
+
+- `app` — application screens and router configuration (expo-router)
+- `assets` — static assets: images, fonts
+- `components` — reusable UI components
+- `constants` — application constants (colors, themes)
+- `hooks` — custom React hooks, including background task logic
+- `i18n` — internationalization configuration and translation files
+- `store` — Redux state management (slices, thunks, persistence)
+
 ## Application structure
 The application should have 3 screens:
 - Home screen with grid power status
@@ -20,6 +30,7 @@ Events should be stored in local storage.
 ### Settings screen
 The screen should display settings for the application. 
 There should be a setting for a Telegram bot api key (stored in secure storage)
+There should be a setting for Telegram chat IDs (comma separated)
 There should be messages text that will be sent by bot in case power off/on events
 
 ## Technologies to use

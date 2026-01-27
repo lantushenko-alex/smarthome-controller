@@ -4,8 +4,8 @@ This application is an add-on to a smart home controlled by the Tuya or
 Mijia IoT platform. 
 
 Currently implemented features: 
-- send telegram bot message when power is off or on 
-- error logging for failed Telegram notifications with 3 retry attempts
+- send telegram bot message when power is off or on (supports multiple chat IDs) 
+- error logging for failed Telegram notifications with 3 retry attempts per chat ID
 - visual logs tab for monitoring power events and errors 
 
 The primary feature is to detect grid power-off events. 
@@ -71,7 +71,11 @@ High-level steps:
 
 Then rebuild:
 `bash cd android gradlew.bat assembleRelease`
-
+### Building with Expo CLI in the cloud
+To build AAB file:
+`npx eas-cli build --platform android --message "First expo build"`
+To build APK file:
+`npx eas-cli build --platform android --profile preview` 
 ### Notes
 - Re-running `npx expo prebuild -p android` can overwrite native changes; commit your work before doing it.
 - If Gradle/JDK errors appear, verify you are using **JDK 17** and that Android SDK paths are correct.

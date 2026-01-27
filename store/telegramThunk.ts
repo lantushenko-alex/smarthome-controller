@@ -15,37 +15,45 @@ export const sendTelegramNotification = createAsyncThunk(
             const state = getState() as RootState;
 
             const notificationsEnabled = selectNotificationsEnabled(state);
-            const telegramChatId = selectTelegramChatId(state);
+            const telegramChatIds = selectTelegramChatId(state).split(',').map(id => id.trim()).filter(id => id.length > 0);
             const token = selectTelegramKey(state);
 
             // If not configured, do nothing
-            if (!notificationsEnabled || !telegramChatId || !token) {
+            if (!notificationsEnabled || telegramChatIds.length === 0 || !token) {
                 return;
             }
 
             const url = `https://api.telegram.org/bot${token}/sendMessage`;
             let lastError: Error | null = null;
 
-            for (let i = 0; i < TELEGRAM_MAX_RETRIES; i++) {
-                try {
-                    const res = await fetch(url, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            chat_id: telegramChatId,
-                            text,
-                        }),
-                    });
+            for (const chatId of telegramChatIds) {
+                let success = false;
+                for (let i = 0; i < TELEGRAM_MAX_RETRIES; i++) {
+                    try {
+                        const res = await fetch(url, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                chat_id: chatId,
+                                text,
+                            }),
+                        });
 
-                    if (!res.ok) {
-                        const details = await res.text().catch(() => '');
-                        throw new Error(`Telegram sendMessage failed: ${res.status} ${res.statusText} ${details}`);
+                        if (!res.ok) {
+                            const details = await res.text().catch(() => '');
+                            throw new Error(`Telegram sendMessage failed for ${chatId}: ${res.status} ${res.statusText} ${details}`);
+                        }
+
+                        success = true;
+                        break; // Success for this chatId
+                    } catch (error) {
+                        lastError = error as Error;
+                        console.warn(`Telegram send attempt ${i + 1} failed for ${chatId}`, error);
                     }
-
-                    return; // Success
-                } catch (error) {
-                    lastError = error as Error;
-                    console.warn(`Telegram send attempt ${i + 1} failed`, error);
+                }
+                if (!success) {
+                    // We continue to other chat IDs even if one fails, but we'll record the last error
+                    console.error(`Failed to send telegram notification to ${chatId} after all attempts`);
                 }
             }
 

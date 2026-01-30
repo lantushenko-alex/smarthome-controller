@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Smart Home Controller",
-    "slug": "smart-home-controller",
+    "name": "Power Cut-off Detector",
+    "slug": "power-cut-off-detector",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",

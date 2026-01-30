@@ -1,5 +1,5 @@
 {
-    "name": "smarthome-controller",
+    "name": "power-cut-off-detector",
     "main": "expo-router/entry",
     "version": "1.0.0",
     "scripts": {

@@ -1,7 +1,7 @@
 # Guidelines for AI tools to generate application prototype
 
 Read the [README](./README.md) file first. Do not implement what is in TODO list.
-The application is named "Smart Home Controller".
+The application is named "Power Cut-off Detector".
 
 ## Project structure
 

@@ -1,14 +1,28 @@
 import * as SecureStore from 'expo-secure-store';
 
+// SecureStore keys must be non-empty and contain only [A-Za-z0-9._-].
+// redux-persist commonly uses keys like "persist:secure" (":" is invalid), so we map them.
+const toSecureStoreKey = (key: string): string => {
+    const trimmed = key.trim();
+    if (!trimmed) {
+        return '__empty__';
+    }
+
+    // Replace any disallowed character (including ":") with "_"
+    return trimmed.replace(/[^A-Za-z0-9._-]/g, '_');
+};
+
 const secureStorage = {
     getItem: (key: string): Promise<string | null> => {
-        return SecureStore.getItemAsync(key);
+        return SecureStore.getItemAsync(toSecureStoreKey(key));
     },
     setItem: (key: string, value: string): Promise<void> => {
-        return SecureStore.setItemAsync(key, value);
+        const mappedKey = toSecureStoreKey(key);
+        console.log(`SecureStore.setItemAsync(${mappedKey}, <value>)`);
+        return SecureStore.setItemAsync(mappedKey, value);
     },
     removeItem: (key: string): Promise<void> => {
-        return SecureStore.deleteItemAsync(key);
+        return SecureStore.deleteItemAsync(toSecureStoreKey(key));
     },
 };
 

@@ -2,11 +2,16 @@
   "expo": {
     "name": "Power Cut-off Detector",
     "slug": "power-cut-off-detector",
-    "version": "1.0.0",
+    "version": "2.0.1",
+    "platforms": [
+      "android",
+      "ios"
+    ],
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "smarthomecontroller",
     "userInterfaceStyle": "automatic",
+    "jsEngine": "hermes",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
@@ -59,7 +64,7 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "ca42bbff-3922-4570-85ae-597e17ed5852"
+        "projectId": "d7e6a879-4c45-44d2-8915-cdcbeab9829f"
       }
     },
     "owner": "alex-lantushenko"

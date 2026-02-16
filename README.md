@@ -22,14 +22,16 @@ Automatically send a request to the Tuya API to shut down the power switch when 
 
 ## Development notes
 
-In order to run the application in debug mode use `npx expo start --tunnel`
+In order to run the application in debug on windows mode use `npx expo start --tunnel`
+In order to run the application in debug on macos mode use `npx expo start -c --dev-client --localhost`
+
 
 ## Build Android APK locally (no EAS)
 
 This project is an Expo app. To build **locally**, we generate the native Android project and use Gradle.
 
 ### 1) Generate the native Android project (first time, or after native config changes)
-`bash npx expo prebuild -p android`
+`npx expo prebuild -p android`
 
 This creates an `android/` folder (native Gradle project).
 
@@ -53,3 +55,7 @@ To build AAB file:
 
 To build APK file:
 `npx eas-cli build --platform android --profile preview` 
+
+## Telegram bot commands
+
+Get chat ID: `https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates`

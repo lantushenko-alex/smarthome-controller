@@ -1,6 +1,9 @@
 name: Create Android APK
 
 jobs:
+  on:
+    push:
+      branches: [ 'develop' ]
   build_android_preview:
     type: build # This job type creates a production build for Android
     params:

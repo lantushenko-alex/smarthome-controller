@@ -54,7 +54,8 @@ To build AAB file:
 `npx eas-cli build --platform android --message "First expo build"`
 
 To build APK file:
-`npx eas-cli build --platform android --profile preview` 
+`npx eas-cli build --platform android --profile preview` or
+`eas build -p android --profile preview --clear-cache`
 
 ## Telegram bot commands
 

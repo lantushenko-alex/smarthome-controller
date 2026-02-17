@@ -20,7 +20,8 @@
           "fetch",
           "processing"
         ]
-      }
+      },
+      "bundleIdentifier": "com.lantushenkoao.smarthomecontroller"
     },
     "android": {
       "adaptiveIcon": {
@@ -55,7 +56,8 @@
           }
         }
       ],
-      "expo-secure-store"
+      "expo-secure-store",
+      "expo-background-task"
     ],
     "experiments": {
       "typedRoutes": true,

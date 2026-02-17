@@ -1,6 +1,6 @@
 import * as Battery from 'expo-battery';
 import * as TaskManager from 'expo-task-manager';
-import * as BackgroundFetch from 'expo-background-fetch';
+import * as BackgroundTask from 'expo-background-task';
 import { store } from '@/store';
 import { setPowered } from '@/store/statusSlice';
 import { addEvent } from '@/store/logsSlice';
@@ -35,21 +35,28 @@ TaskManager.defineTask(BACKGROUND_BATTERY_TASK, async () => {
             }
         }
 
-        return BackgroundFetch.BackgroundFetchResult.NewData;
+        return BackgroundTask.BackgroundTaskResult.Success;
     } catch (error) {
         console.error('Background task failed:', error);
-        return BackgroundFetch.BackgroundFetchResult.Failed;
+        store.dispatch(
+            addEvent({
+                id: Date.now().toString(),
+                type: 'error',
+                timestamp: Date.now(),
+                message: error instanceof Error ? error.message : String(error),
+            })
+        );
+        return BackgroundTask.BackgroundTaskResult.Failed;
     }
 });
 
 export async function registerBackgroundBatteryTask() {
-    return BackgroundFetch.registerTaskAsync(BACKGROUND_BATTERY_TASK, {
-        minimumInterval: 60, // 1 minute
-        stopOnTerminate: false,
-        startOnBoot: true,
+    return BackgroundTask.registerTaskAsync(BACKGROUND_BATTERY_TASK, {
+        minimumInterval: 60, // 1 minute, although it will delay to 15 mins
     });
 }
 
+//this is not actually used because we need this task running all the time
 export async function unregisterBackgroundBatteryTask() {
-    return BackgroundFetch.unregisterTaskAsync(BACKGROUND_BATTERY_TASK);
+    return BackgroundTask.unregisterTaskAsync(BACKGROUND_BATTERY_TASK);
 }

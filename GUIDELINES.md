@@ -44,7 +44,7 @@ Use secure storage in order to store sensitive data, such as Telegram bot api ke
 ## Background Execution
 
 The application should be able to run and save telegram messages even when device sleeps.
-For this purpose, `expo-task-manager Telegram if the state changes.
-Permissions `RECEIVE_BOOT_COMPLETED` and `WAKE_LOCK` are required on` and `expo-background-fetch` are used to monitor battery status in the background.
-The background task is registered to check battery state periodically and notify via Android.
-On iOS, `fetch` and `processing` background modes should be enabled.
+For this purpose, `expo-task-manager` and `expo-background-task` are used to monitor battery status in the background.
+The background task is registered to check battery state periodically and notify via Telegram if the state changes.
+Permissions `RECEIVE_BOOT_COMPLETED` and `WAKE_LOCK` are required on Android.
+On iOS, `processing` background mode should be enabled. Additionally there is useKeepAwake hook to prevent device from sleeping.

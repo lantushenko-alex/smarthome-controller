@@ -6,11 +6,14 @@ import { store, persistor, RootState } from '../store';
 import i18n from '../i18n';
 import { useBatteryMonitor } from '../hooks/useBatteryMonitor';
 import { registerBackgroundBatteryTask } from '../hooks/useBackgroundBatteryTask';
+import { useKeepAwake } from 'expo-keep-awake';
 
 function AppContent() {
     const language = useSelector((state: RootState) => state.settings.language);
     useBatteryMonitor();
 
+    //do not switch off screen while app is running
+    useKeepAwake();
     useEffect(() => {
         registerBackgroundBatteryTask().catch(err => console.error('Failed to register background task', err));
     }, []);

@@ -6,6 +6,7 @@ const resources = {
     translation: {
       home: {
         title: 'Home',
+        description: 'The app detects grid power-off events. Plug your phone into an outlet; if power goes down, it sends a Telegram message. Do not forget to configure the bot token and chat IDs in the settings.',
         status: 'Grid Power Status',
         powered: 'Connected',
         notPowered: 'Disconnected',
@@ -29,12 +30,19 @@ const resources = {
         language: 'Language',
         save: 'Save',
       },
+      backgroundSettings: {
+        title: 'Background Execution',
+        message: 'To ensure the app runs reliably in the background, please disable "Pause app activity if unused" and set Battery to "Unrestricted" in App Info settings.',
+        openSettings: 'Open Settings',
+        later: 'Later',
+      },
     },
   },
   ru: {
     translation: {
       home: {
         title: 'Главная',
+        description: 'Приложение отслеживает отключение электросети. Подключите телефон к розетке; при сбое питания оно отправит сообщение в Telegram. Не забудьте настроить токен бота и ID чатов в настройках.',
         status: 'Статус электросети',
         powered: 'Подключено',
         notPowered: 'Отключено',
@@ -57,6 +65,12 @@ const resources = {
         powerOnMsg: 'Сообщение при включении',
         language: 'Язык',
         save: 'Сохранить',
+      },
+      backgroundSettings: {
+        title: 'Фоновый режим',
+        message: 'Для надежной работы приложения в фоновом режиме, пожалуйста, отключите функцию "Удалять разрешения и освобождать место" и установите "Экономия заряда" в положение "Без ограничений" в настройках приложения.',
+        openSettings: 'Открыть настройки',
+        later: 'Позже',
       },
     },
   },

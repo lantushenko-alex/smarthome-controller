@@ -27,6 +27,7 @@ There should be a switch to turn on/off notifications.
 The screen should display list of power cut off events. 
 Events should be stored in local storage.
 
+
 ### Settings screen
 The screen should display settings for the application. 
 There should be a setting for a Telegram bot api key (stored in secure storage)
@@ -40,6 +41,7 @@ Application should support internationalization. Default language is Russian.
 All UI messages should be translated to English or Russian.
 
 Use secure storage in order to store sensitive data, such as Telegram bot api key.
+Prefer logging errors into `store/logsSlice.ts` in addition to console logging.
 
 ## Background Execution
 
@@ -47,4 +49,5 @@ The application should be able to run and save telegram messages even when devic
 For this purpose, `expo-task-manager` and `expo-background-task` are used to monitor battery status in the background.
 The background task is registered to check battery state periodically and notify via Telegram if the state changes.
 Permissions `RECEIVE_BOOT_COMPLETED` and `WAKE_LOCK` are required on Android.
+The `useAndroidBackgroundSettings` hook is used to prompt the user to disable battery optimizations for reliable background execution.
 On iOS, `processing` background mode should be enabled. Additionally there is useKeepAwake hook to prevent device from sleeping.

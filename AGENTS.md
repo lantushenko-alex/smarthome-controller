@@ -36,6 +36,8 @@ There should be messages text that will be sent by bot in case power off/on even
 
 ## Technologies to use
 
+Project is built using React Native Expo
+
 Use redux and redux persist. Use expo router for tab navigation. 
 Application should support internationalization. Default language is Russian.
 All UI messages should be translated to English or Russian.

@@ -34,6 +34,7 @@
             "favicon": "./assets/images/favicon.png"
         },
         "plugins": [
+            "./plugins/withKioskMode",
             "expo-router",
             [
                 "expo-splash-screen",

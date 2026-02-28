@@ -1,18 +1,13 @@
 import React from 'react';
-import { StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, TextInput, TouchableOpacity, ScrollView, Platform, Linking } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { RootState } from '@/store';
-import {
-    setPowerOffMessage,
-    setPowerOnMessage,
-    setLanguage,
-    setTelegramChatId,
-} from '@/store/settingsSlice';
+import { setPowerOffMessage, setPowerOnMessage, setLanguage, setTelegramChatId } from '@/store/settingsSlice';
 import { setTelegramKey } from '@/store/secureSlice';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-
+import { IconSymbol } from '@/components/ui/icon-symbol';
 
 export default function SettingsScreen() {
     const { t, i18n } = useTranslation();
@@ -27,6 +22,18 @@ export default function SettingsScreen() {
     const changeLanguage = (lang: 'en' | 'ru') => {
         dispatch(setLanguage(lang));
         i18n.changeLanguage(lang);
+    };
+
+    const openLauncherChooser = () => {
+        if (Platform.OS === 'android') {
+            // ACTION_MAIN + CATEGORY_HOME with no component forces the chooser dialog
+            Linking.sendIntent('android.intent.action.MAIN', [
+                { key: 'category', value: 'android.intent.category.HOME' },
+            ]).catch(() => {
+                // Fallback: open Android home settings where the user can change the default app
+                Linking.openSettings();
+            });
+        }
     };
 
     return (
@@ -87,6 +94,17 @@ export default function SettingsScreen() {
                     </TouchableOpacity>
                 </ThemedView>
             </ThemedView>
+
+            {Platform.OS === 'android' && (
+                <ThemedView style={styles.section}>
+                    <ThemedText type="defaultSemiBold">{t('settings.launcher')}</ThemedText>
+                    <ThemedText style={styles.launcherDesc}>{t('settings.changeLauncherDesc')}</ThemedText>
+                    <TouchableOpacity style={styles.launcherButton} onPress={openLauncherChooser}>
+                        <IconSymbol name="gearshape.fill" size={18} color="#fff" style={styles.launcherIcon} />
+                        <ThemedText style={styles.launcherButtonText}>{t('settings.changeLauncher')}</ThemedText>
+                    </TouchableOpacity>
+                </ThemedView>
+            )}
         </ScrollView>
     );
 }
@@ -141,5 +159,25 @@ const styles = StyleSheet.create({
     activeLang: {
         backgroundColor: '#007AFF',
         borderColor: '#007AFF',
+    },
+    launcherDesc: {
+        marginTop: 6,
+        marginBottom: 10,
+        opacity: 0.7,
+        fontSize: 13,
+    },
+    launcherButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#007AFF',
+        padding: 12,
+        borderRadius: 8,
+    },
+    launcherIcon: {
+        marginRight: 8,
+    },
+    launcherButtonText: {
+        color: '#fff',
+        fontWeight: 'bold',
     },
 });

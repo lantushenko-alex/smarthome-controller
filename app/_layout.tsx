@@ -7,10 +7,13 @@ import i18n from '../i18n';
 import { useBatteryMonitor } from '../hooks/useBatteryMonitor';
 import { registerBackgroundBatteryTask } from '../hooks/useBackgroundBatteryTask';
 import { useKeepAwake } from 'expo-keep-awake';
+import { useAndroidBackgroundSettings } from '@/hooks/useAndroidBackgroundSettings';
 
 function AppContent() {
     const language = useSelector((state: RootState) => state.settings.language);
     useBatteryMonitor();
+    useAndroidBackgroundSettings();
+
 
     //do not switch off screen while app is running
     useKeepAwake();

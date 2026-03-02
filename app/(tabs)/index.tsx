@@ -16,6 +16,12 @@ export default function HomeScreen() {
 
     return (
         <ThemedView style={styles.container}>
+            <ThemedView style={styles.descriptionContainer}>
+                <ThemedText style={styles.descriptionText}>
+                    {t('home.description')}
+                </ThemedText>
+            </ThemedView>
+
             <ThemedView style={styles.statusContainer}>
                 <IconSymbol
                     size={100}
@@ -53,6 +59,17 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    descriptionContainer: {
+        paddingBottom: 20,
+        borderBottomWidth: StyleSheet.hairlineWidth,
+        borderBottomColor: '#ccc',
+    },
+    descriptionText: {
+        fontSize: 16,
+        lineHeight: 26,
+        textAlign: 'center',
+        opacity: 0.8,
     },
     statusLabel: {
         marginTop: 20,

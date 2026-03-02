@@ -18,7 +18,6 @@ const secureStorage = {
     },
     setItem: (key: string, value: string): Promise<void> => {
         const mappedKey = toSecureStoreKey(key);
-        console.log(`SecureStore.setItemAsync(${mappedKey}, <value>)`);
         return SecureStore.setItemAsync(mappedKey, value);
     },
     removeItem: (key: string): Promise<void> => {
